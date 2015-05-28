@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Using Jquery to retrieve JSON via AJAX</title>
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.0.min.js"></script>
+    <link rel="stylesheet" href="">
+</head>
+<body>
+<h1 id="title">Using Jquery to retrieve JSON via AJAX</h1>
+<a href="#" id="clickme">Get JSON Data</a>
+
+<script type="text/javascript">
+$(function () {
+    $('#clickme').click(function () {
+        /*
+        $.getJSON('data19.json', function (data) {
+            var items = [];
+            $.each(data, function (key, val) {
+                items.push('<li id=">' + key + '">' + val + '</li>');
+            });
+            $('<ul/>', {
+                'class': 'interest-list',
+                html: items.join('')
+            }).appendTo('body');
+
+        });
+        */
+        $.ajax({
+            url: 'data20.json',
+            dataType: 'json',
+            success: function (data) {
+                var items = [];
+                var newData = data['query']['pages'];
+                for(var key in newData) {
+                    if(newData.hasOwnProperty(key)) {
+                        var firstProp = newData[key];
+                        console.log(firstProp);
+                        var rev = firstProp['revisions'];
+                        console.log(rev);
+                        console.log('this is ' +firstProp);
+                        break;
+                    }
+                }
+
+                $.each(newData, function (key, val) {
+                    console.log('this is a key' +key);
+                    console.log('This is a val' +val);
+                    items.push('<li id=">' + key + '">' + val + '</li>');
+                });
+                $('<ul/>', {
+                    'class': 'interest-list',
+                    html: items.join('')
+                }).appendTo('body');
+            },
+            statusCode: {
+                404: function () {
+                    alert('there was a problem with server.')
+                }
+            }
+
+        });
+    });
+});
+
+</script>
+</body>
+</html>
