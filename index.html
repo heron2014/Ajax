@@ -36,8 +36,8 @@ $(function () {
                     if(newData.hasOwnProperty(key)) {
                         var firstProp = newData[key];
                         console.log(firstProp);
-                        var rev = firstProp['revisions'];
-                        console.log(rev);
+                        var rev = firstProp['revisions'][0];
+                        console.log('hello' +rev);
                         console.log('this is ' +firstProp);
                         break;
                     }
